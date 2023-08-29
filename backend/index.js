@@ -16,6 +16,9 @@ app.use(cors({
 app.use(express.static('public'));
 
 //Config routes
+const UserRoutes = require('./routes/UserRoutes');
+
+app.use('/users', UserRoutes);
 
 app.listen(5000, () => {
     console.log('Server running on port 5000')
