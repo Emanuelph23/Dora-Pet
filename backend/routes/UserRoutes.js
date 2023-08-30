@@ -14,6 +14,5 @@ router.post('/login', UserController.login);
 router.get('/checkuser', UserController.checkUser);
 router.get('/:id', UserController.getUserById);
 router.patch('/edit/:id', checkToken, imageUpload.single("avatar"),UserController.editUser);
-router.post('/shopping/:id', checkToken,UserController.shoppingUser);
 
 module.exports = router;
