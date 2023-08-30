@@ -199,34 +199,7 @@ class UserController {
             return
         }
     }
-
-    static async shoppingUser(req, res) {
-
-        const id = req.params.id;
-
-        const user = await User.findById(id);
-
-        const {productname, price, description} = req.body;
-
-        try {
-            
-            user.shopping.push({
-                productname,
-                price,
-                images: [],
-                description
-            });
-
-            await user.save();
-
-            res.status(200).json({message: 'Produto adicionado ao carrinho com sucesso!'});
-
-        } catch (error) {
-            res.status(500).json({message: error});
-        }
-
-    }
-
+    
 }
 
 module.exports = UserController;
