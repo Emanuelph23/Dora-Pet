@@ -4,11 +4,13 @@ const checkUserExists = require('../helpers/check-user-exists');
 const checkPassword = require('../helpers/check-password');
 const getToken = require('../helpers/get-token');
 const getUserByToken = require('../helpers/get-user-by-token');
+const getProductById = require('../helpers/get-product-by-id');
 //Models
 const User = require('../models/User');
 //Libs
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 class UserController {
 
@@ -175,6 +177,7 @@ class UserController {
         }
 
         //Update user
+        user.username = username;
         user.email = email;
         user.phone = phone;
         user.address = address;
@@ -197,6 +200,35 @@ class UserController {
         } catch (error) {
             res.status(500).json({message: error});
             return
+        }
+    }
+
+    static async shoppingUser(req, res){
+
+        //Get user By Token
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        //Check if ID is valid
+        const id = req.params.id;
+
+        if(!ObjectId.isValid(id)) {
+            res.status(422).json({message: 'ID inválido'});
+            return
+        }
+
+        //Get product By Id
+        const product = await getProductById(id, req, res);
+
+        //Add product to user
+        try {
+            
+            await User.findOneAndUpdate({_id: user._id}, {$push: {shopping: product}}, {new: true})
+
+            res.status(200).json({message: 'Produto adicionado ao carrinho com sucesso!'});
+
+        } catch (error) {
+            res.status(500).json({message: error});
         }
     }
     
