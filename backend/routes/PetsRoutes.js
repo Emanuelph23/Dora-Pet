@@ -3,10 +3,10 @@ const router = express.Router();
 
 //Import Pets Controller
 const PetsController = require('../controllers/PetsController');
-const {imageUpload} = require('../helpers/image-upload');
 
 //Middlewares
 const verifyToken = require('../helpers/verify-token');
+const {imageUpload} = require('../helpers/image-upload');
 
 //Routes
 router.post('/create', verifyToken, imageUpload.array('imagespet') ,PetsController.createPet);
