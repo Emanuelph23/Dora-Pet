@@ -3,6 +3,8 @@ const Pet = require('../models/Pet');
 //Helpers
 const getToken = require('../helpers/get-token');
 const getUserByToken = require('../helpers/get-user-by-token');
+
+//Middleware
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = class PetsController {
@@ -14,9 +16,6 @@ module.exports = class PetsController {
         const imagespet = req.files
 
         const avaliable = true;
-
-        //Images Upload
-
 
         //Validations
         if(!petname) {
@@ -176,7 +175,7 @@ module.exports = class PetsController {
             return
         }
 
-        const {petname, age, weight, coat, avaliable} = req.body;
+        const {petname, age, weight, coat} = req.body;
 
         const imagespet = req.files
 
