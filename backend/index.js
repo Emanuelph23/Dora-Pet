@@ -18,9 +18,11 @@ app.use(express.static('public'));
 //Config routes
 const UserRoutes = require('./routes/UserRoutes');
 const PetRoutes = require('./routes/PetsRoutes');
+const EcommerceRoutes = require('./routes/EcommerceRoutes');
 
 app.use('/users', UserRoutes);
 app.use('/pets', PetRoutes);
+app.use('/ecommerce', EcommerceRoutes);
 
 app.listen(5000, () => {
     console.log('Server running on port 5000')
